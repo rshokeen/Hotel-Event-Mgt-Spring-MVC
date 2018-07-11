@@ -4,10 +4,15 @@ package com.landonhotel.eventsapp.controller;
 // respond to those requests. Implementing a feature like this will require us to use some of those other request mapping options.
 
 import com.landonhotel.eventsapp.domain.QuoteRequest;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class QuoteRequestManagementController {
@@ -76,7 +81,7 @@ public class QuoteRequestManagementController {
         return "quoteRequestDetail";
     }
 
-    //MODEL METHOD
+    //MODEL METHOD - used to add model attributes. They are called before any @RequestMapping methods are called in same controller.
     @ModelAttribute
     public void addCommonAttribute(@RequestParam String eventType, Model model)
     {
@@ -84,6 +89,17 @@ public class QuoteRequestManagementController {
         //wedding vs. corporate meetings
         String customMessage = "You are viewing requests for" + eventType;
         model.addAttribute("eventTypeMessage", customMessage);
+    }
+
+    //Binder Method - to format event dates
+    public void initBinder(WebDataBinder binder)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        dateFormat.setLenient(false);
+
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,false));
+
+
     }
 
 }
