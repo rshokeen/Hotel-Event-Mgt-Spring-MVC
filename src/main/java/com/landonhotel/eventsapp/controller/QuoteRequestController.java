@@ -1,6 +1,7 @@
 package com.landonhotel.eventsapp.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,10 +14,11 @@ import com.landonhotel.eventsapp.domain.QuoteRequest;
 @Controller
 public class QuoteRequestController {
 
-    @GetMapping //("/newquote") //To handle HTTP get requests. Return the page that user wants to fill to request quote
-    public String beginQuoteRequest() {
+    @GetMapping ("/newquote") //To handle HTTP get requests. Return the page that user wants to fill to request quote
+    public String beginQuoteRequest(Model model) {
 
         //add implementation later
+        model.addAttribute("quoteRequestForm", new QuoteRequest());
         
     		return "newQuote"; //string maps to html file
     }
