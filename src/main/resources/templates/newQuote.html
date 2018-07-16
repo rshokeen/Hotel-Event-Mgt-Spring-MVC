@@ -7,7 +7,27 @@
 <body>
 
     <h1>Request an Estimate</h1>
-    
+
+<form action="#" th:object="${quoteRequestForm}" th:action="@{/newQuote}" method="post" class="inline">
+
+    <ul th:if="${#fields.hasErrors('*')}" class="error span-18">
+        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+    </ul>
+
+    <fieldset>
+        <div class="span-8">
+            <label for="eventType">Event Type</label>
+
+            <input type="text" id="eventType" th:name="eventType" />
+        </div>
+
+        <div class="span-8">
+            <input type="submit" id="submitQuoteRequest" value="Submit">
+        </div>
+
+
+    </fieldset>
+</form>
     
 </body>
 </html>
